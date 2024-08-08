@@ -1,0 +1,41 @@
+{
+  "name": "calc",
+  "description": "Simple calculator",
+  "options": [
+    {
+      "name": "number1",
+      "description": "Enter first number:",
+      "type": 10,
+      "required": true
+    },
+    {
+      "name": "operator",
+      "description": "Choose operator:",
+      "type": 3,
+      "required": true,
+      "choices": [ {
+        "name": "+",
+        "value": "+"
+      },
+        {
+        "name": "-",
+        "value": "-"
+      },
+        {
+        "name": "*",
+        "value": "*"
+      },
+        {
+          "name": "/",
+          "value": "/"
+        }
+        ]
+    },
+    {
+      "name": "number2",
+      "description": "Enter second number:",
+      "type": 10,
+      "required": true
+    }
+  ]
+}
