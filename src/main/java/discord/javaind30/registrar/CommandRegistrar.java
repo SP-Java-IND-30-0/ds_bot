@@ -1,12 +1,10 @@
-package discord.javaind30;
+package discord.javaind30.registrar;
 
 import discord4j.common.JacksonResources;
-import discord4j.rest.service.ApplicationService;
 import discord4j.discordjson.json.ApplicationCommandRequest;
+import discord4j.rest.RestClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import discord4j.rest.RestClient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,34 +16,27 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class GlobalCommandRegistrar {
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-    private final RestClient restClient;
-    private static final String commandsFolderName = "commands/";
+public abstract class CommandRegistrar {
+    protected static final String commandsFolderName = "commands/";
+    protected final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    protected final RestClient restClient;
+    protected final long applicationId;
+    protected List<ApplicationCommandRequest> commands;
 
-    public GlobalCommandRegistrar(RestClient restClient) {
+    protected CommandRegistrar(RestClient restClient) {
         this.restClient = restClient;
+        applicationId = restClient.getApplicationId().block();
+        commands = new ArrayList<>();
     }
 
-    protected void registerCommands(List<String> fileNames) throws IOException {
+    public void registerCommands(List<String> fileNames) throws IOException {
         final JacksonResources d4jMapper = JacksonResources.create();
 
-        // Convenience variables for the sake of easier to read code below
-        final ApplicationService applicationService = restClient.getApplicationService();
-        final long applicationId = restClient.getApplicationId().block();
-
-        List<ApplicationCommandRequest> commands = new ArrayList<>();
         for (String json : getCommandsJson(fileNames)) {
             ApplicationCommandRequest request = d4jMapper.getObjectMapper()
                     .readValue(json, ApplicationCommandRequest.class);
-
             commands.add(request);
         }
-
-        applicationService.bulkOverwriteGlobalApplicationCommand(applicationId, commands)
-                .doOnNext(cmd -> LOGGER.debug("Successfully registered Global Command {}", cmd.name()))
-                .doOnError(e -> LOGGER.error("Failed to register global commands", e))
-                .subscribe();
     }
 
     private static List<String> getCommandsJson(List<String> fileNames) throws IOException {

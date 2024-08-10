@@ -1,9 +1,6 @@
 package discord.javaind30.listeners;
 
-import discord.javaind30.commands.GreetCommand;
-import discord.javaind30.commands.PingCommand;
-import discord.javaind30.commands.CalcCommand;
-import discord.javaind30.commands.SlashCommand;
+import discord.javaind30.commands.*;
 
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import reactor.core.publisher.Flux;
@@ -20,6 +17,7 @@ public class SlashCommandListener {
         commands.add(new PingCommand());
         commands.add(new GreetCommand());
         commands.add(new CalcCommand());
+        commands.add(new PollCommand());
     }
 
     public static Mono<Void> handle(ChatInputInteractionEvent event) {

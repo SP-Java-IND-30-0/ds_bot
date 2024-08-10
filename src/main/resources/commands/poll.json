@@ -1,0 +1,21 @@
+{
+  "name": "poll",
+  "description": "create, edit and run polls",
+  "options": [
+    {
+      "name": "create",
+      "description": "create poll",
+      "type": 1
+    },
+    {
+      "name": "edit",
+      "description": "edit poll",
+      "type": 1
+    },
+    {
+      "name": "run",
+      "description": "run poll",
+      "type": 1
+    }
+  ]
+}
