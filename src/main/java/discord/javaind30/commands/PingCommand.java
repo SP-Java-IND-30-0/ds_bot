@@ -12,7 +12,6 @@ public class PingCommand implements SlashCommand {
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
-        System.out.println("event = " + event);
         return event.reply()
                 .withEphemeral(true)
                 .withContent("Pong!");
