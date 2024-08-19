@@ -29,8 +29,8 @@ public class DiscordJavaBot {
 
         final GatewayDiscordClient bot = DiscordClient.create(BOT_TOKEN).login().block();
 
-        List<String> globalCommands = List.of("greet.json", "ping.json", "calc.json");
-        List<String> guildCommands = List.of("poll.json");
+        List<String> globalCommands = List.of("greet.json", "ping.json", "calc.json", "poll.json");
+//        List<String> guildCommands = List.of("poll.json");
 
 
         try {
@@ -38,16 +38,16 @@ public class DiscordJavaBot {
         } catch (Exception e) {
             LOGGER.error("Error trying to register global slash commands", e);
         }
-        try {
-            new GuildCommandRegistrar(bot.getRestClient()).registerCommands(guildCommands);
-        } catch (Exception e){
-            LOGGER.error("Error trying to register guild slash commands", e);
-        }
+//        try {
+//            new GuildCommandRegistrar(bot.getRestClient()).registerCommands(guildCommands);
+//        } catch (Exception e){
+//            LOGGER.error("Error trying to register guild slash commands", e);
+//        }
 
-        bot.on(ChatInputInteractionEvent.class, SlashCommandListener::handle)
-                .then(bot.onDisconnect())
+        bot.on(ChatInputInteractionEvent.class, SlashCommandListener::handle).then()
                 .block();
 
+        bot.onDisconnect().block();
     }
 
 

@@ -6,18 +6,8 @@
       "name": "name",
       "description": "Your name",
       "type": 3,
-      "required": true,
-      "choices": [ {
-        "name": "John",
-        "value": "John"},
-        {
-        "name": "Jane",
-        "value": "Jane"},
-        {
-        "name": "Joe",
-        "value": "Joe"
-      }
-      ]
+      "required": true
+
     }
   ]
 }
