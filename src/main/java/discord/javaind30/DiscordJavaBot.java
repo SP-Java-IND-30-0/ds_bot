@@ -11,11 +11,11 @@ import java.util.List;
 
 public class DiscordJavaBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(DiscordJavaBot.class);
-    private static final String BOT_TOKEN = "MTI2ODUwMzA1MDQxNTUwOTUzNA.GTGFk-.B6NrNX5ygRIOKnGH6EjEIT1njRYYDs-r7TSD4Y";
 
     public static void main(String[] args) {
 
-       final GatewayDiscordClient bot = DiscordClient.create(BOT_TOKEN).login().block();
+        String BOT_TOKEN = args[0];
+        final GatewayDiscordClient bot = DiscordClient.create(BOT_TOKEN).login().block();
 
         List<String> commands = List.of("greet.json", "ping.json", "calc.json");
 
